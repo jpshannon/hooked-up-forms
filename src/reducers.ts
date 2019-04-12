@@ -1,11 +1,9 @@
-import { createValue, getValue } from './utils';
-import { merge, cloneDeep } from 'lodash-es';
+import { createValue, getValue, cloneAndMerge as merge } from './utils';
 
 function formReducer(state, action) {
-	switch(action.type)
-	{
+	switch (action.type) {
 		case addError.actionType:
-			return addError(state, action.errors, action.clear||false)
+			return addError(state, action.errors, action.clear || false)
 
 		case setPathValue.actionType:
 			return setPathValue(state, action.path, action.value)
@@ -18,7 +16,7 @@ function formReducer(state, action) {
 	}
 }
 
-function addError (state, errors, clear = false) {
+function addError(state, errors, clear = false) {
 	const newError = clear === true ? errors : { ...state.errors, ...errors };
 	return {
 		...state,
@@ -28,10 +26,11 @@ function addError (state, errors, clear = false) {
 }
 addError.actionType = "ADD_ERROR";
 
-function setPathValue (state, path, value) {
+function setPathValue(state, path, value) {
 	return {
 		...state,
-		value: merge(cloneDeep(state.value), createValue(path, value)),
+		value: merge(
+			(state.value), createValue(path, value)),
 		touched: merge({ ...state.touched }, createValue(path, true)),
 		pristine: false
 	}

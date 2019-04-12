@@ -20,4 +20,4 @@ export function initFormState(value:any) {
 
 let dispatch = {} as Dispatch<any>;
 function validator(state:any) { return state as any; }
-export const FormContext = React.createContext({dispatch, validator: validator });
+export const FormContext = React.createContext({dispatch, validator, state: formState });
